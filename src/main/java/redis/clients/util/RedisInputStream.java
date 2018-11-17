@@ -20,6 +20,7 @@ import redis.clients.jedis.exceptions.JedisConnectionException;
  */
 public class RedisInputStream extends FilterInputStream {
 
+  //客户端接受server返回结果的缓冲区：默认8Kb
   protected final byte[] buf;
 
   protected int count, limit;

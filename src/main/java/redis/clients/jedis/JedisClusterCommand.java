@@ -10,6 +10,9 @@ import redis.clients.jedis.exceptions.JedisRedirectionException;
 import redis.clients.util.JedisClusterCRC16;
 import redis.clients.util.SafeEncoder;
 
+/**
+ * 参考：https://blog.csdn.net/junchenbb0430/article/details/78672706
+ */
 public abstract class JedisClusterCommand<T> {
 
   private JedisClusterConnectionHandler connectionHandler;

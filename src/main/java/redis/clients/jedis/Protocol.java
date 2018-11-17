@@ -84,6 +84,9 @@ public final class Protocol {
     sendCommand(os, command.raw, args);
   }
 
+  /**
+   * redis协议格式为："*3\r\n$3\r\nSET\r\n$5\r\nmykey\r\n$7\r\nmyvalue\r\n"
+   */
   private static void sendCommand(final RedisOutputStream os, final byte[] command,
       final byte[]... args) {
     try {
