@@ -494,6 +494,7 @@ public abstract class PipelineBase extends Queable implements BinaryRedisPipelin
   }
 
   public Response<String> set(String key, String value) {
+    //set后只是将请求写入到了对应connection的output stream中,并没有flush到redis sever
     getClient(key).set(key, value);
     return getResponse(BuilderFactory.STRING);
   }

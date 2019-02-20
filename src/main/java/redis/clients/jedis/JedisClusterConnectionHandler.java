@@ -9,6 +9,7 @@ import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
 import redis.clients.jedis.exceptions.JedisConnectionException;
 
 public abstract class JedisClusterConnectionHandler implements Closeable {
+  //用来缓存redis cluster的各个分片
   protected final JedisClusterInfoCache cache;
 
   public JedisClusterConnectionHandler(Set<HostAndPort> nodes,
@@ -24,7 +25,7 @@ public abstract class JedisClusterConnectionHandler implements Closeable {
   public Jedis getConnectionFromNode(HostAndPort node) {
     return cache.setupNodeIfNotExist(node).getResource();
   }
-  
+
   public Map<String, JedisPool> getNodes() {
     return cache.getNodes();
   }

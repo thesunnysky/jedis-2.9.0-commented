@@ -116,6 +116,7 @@ public abstract class JedisClusterCommand<T> {
         if (tryRandomNode) {
           connection = connectionHandler.getConnection();
         } else {
+          //获取key所属slot的connection
           connection = connectionHandler.getConnectionFromSlot(JedisClusterCRC16.getSlot(key));
         }
       }
@@ -143,6 +144,7 @@ public abstract class JedisClusterCommand<T> {
 
       return runWithRetries(key, attempts - 1, tryRandomNode, asking);
     } catch (JedisRedirectionException jre) {
+      //在cluster模式下遇到redirect错误,进行请求重定向
       // if MOVED redirection occurred,
       if (jre instanceof JedisMovedDataException) {
         // it rebuilds cluster's slot cache

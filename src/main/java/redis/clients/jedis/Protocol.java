@@ -143,9 +143,9 @@ public final class Protocol {
     String[] response = new String[3];
     String[] messageInfo = clusterRedirectResponse.split(" ");
     String[] targetHostAndPort = HostAndPort.extractParts(messageInfo[2]);
-    response[0] = messageInfo[1];
-    response[1] = targetHostAndPort[0];
-    response[2] = targetHostAndPort[1];
+    response[0] = messageInfo[1]; //slot
+    response[1] = targetHostAndPort[0]; //ip
+    response[2] = targetHostAndPort[1]; //port
     return response;
   }
 

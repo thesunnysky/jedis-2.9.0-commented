@@ -18,6 +18,9 @@ import redis.clients.jedis.params.sortedset.ZAddParams;
 import redis.clients.jedis.params.sortedset.ZIncrByParams;
 import redis.clients.util.Hashing;
 
+/**
+ * 基于一致性hash实现的jedis
+ */
 public class ShardedJedis extends BinaryShardedJedis implements JedisCommands, Closeable {
 
   protected Pool<ShardedJedis> dataSource = null;
@@ -660,7 +663,7 @@ public class ShardedJedis extends BinaryShardedJedis implements JedisCommands, C
   /**
    * This method is deprecated due to bug (scan cursor should be unsigned long)
    * And will be removed on next major release
-   * @see https://github.com/xetorthio/jedis/issues/531 
+   * @see https://github.com/xetorthio/jedis/issues/531
    */
   public ScanResult<Entry<String, String>> hscan(String key, int cursor) {
     Jedis j = getShard(key);
@@ -671,7 +674,7 @@ public class ShardedJedis extends BinaryShardedJedis implements JedisCommands, C
   /**
    * This method is deprecated due to bug (scan cursor should be unsigned long)
    * And will be removed on next major release
-   * @see https://github.com/xetorthio/jedis/issues/531 
+   * @see https://github.com/xetorthio/jedis/issues/531
    */
   public ScanResult<String> sscan(String key, int cursor) {
     Jedis j = getShard(key);
@@ -682,7 +685,7 @@ public class ShardedJedis extends BinaryShardedJedis implements JedisCommands, C
   /**
    * This method is deprecated due to bug (scan cursor should be unsigned long)
    * And will be removed on next major release
-   * @see https://github.com/xetorthio/jedis/issues/531 
+   * @see https://github.com/xetorthio/jedis/issues/531
    */
   public ScanResult<Tuple> zscan(String key, int cursor) {
     Jedis j = getShard(key);

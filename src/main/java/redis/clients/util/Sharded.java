@@ -13,7 +13,9 @@ import java.util.regex.Pattern;
 public class Sharded<R, S extends ShardInfo<R>> {
 
   public static final int DEFAULT_WEIGHT = 1;
+  //用来实现一致性hash
   private TreeMap<Long, S> nodes;
+  //hash算法
   private final Hashing algo;
   private final Map<ShardInfo<R>, R> resources = new LinkedHashMap<ShardInfo<R>, R>();
 
@@ -67,6 +69,7 @@ public class Sharded<R, S extends ShardInfo<R>> {
     return resources.get(getShardInfo(key));
   }
 
+  //根据key获取key在一致性hash算法下对应的jedis
   public R getShard(String key) {
     return resources.get(getShardInfo(key));
   }

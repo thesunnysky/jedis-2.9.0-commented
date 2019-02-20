@@ -309,6 +309,7 @@ public class Connection implements Closeable {
     flush();
     while (pipelinedCommands > except) {
       try {
+        //批量获取redis返回的结果
         all.add(readProtocolWithCheckingBroken());
       } catch (JedisDataException e) {
         all.add(e);

@@ -19,7 +19,10 @@ import redis.clients.jedis.exceptions.JedisException;
 import redis.clients.util.SafeEncoder;
 
 public class JedisClusterInfoCache {
+  //key是redis server的"ip:port", jedis对redis cluster的每一个分片都有有一个jedisPool来
+  //管理与其的connection
   private final Map<String, JedisPool> nodes = new HashMap<String, JedisPool>();
+  //key是cluster slot的ip,value为该slot所属的redis server的JedisPool
   private final Map<Integer, JedisPool> slots = new HashMap<Integer, JedisPool>();
 
   private final ReentrantReadWriteLock rwl = new ReentrantReadWriteLock();
@@ -51,6 +54,7 @@ public class JedisClusterInfoCache {
 
     try {
       reset();
+      //获取cluster所有的slot
       List<Object> slots = jedis.clusterSlots();
 
       for (Object slotInfoObj : slots) {
@@ -148,6 +152,7 @@ public class JedisClusterInfoCache {
         ((Long) hostInfos.get(1)).intValue());
   }
 
+  //如果jedis没有缓存redis cluster的该分片,则缓存
   public JedisPool setupNodeIfNotExist(HostAndPort node) {
     w.lock();
     try {
