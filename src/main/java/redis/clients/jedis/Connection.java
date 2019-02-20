@@ -233,9 +233,11 @@ public class Connection implements Closeable {
         && !socket.isInputShutdown() && !socket.isOutputShutdown();
   }
 
+  //将outputStream中的请求发送到redis-server,同时获取返回结果
   public String getStatusCodeReply() {
-    flush();
+    flush();    //outputStream.flush(), 将请求发送到redis server
     pipelinedCommands--;
+    //(阻塞)读取redis server的response
     final byte[] resp = (byte[]) readProtocolWithCheckingBroken();
     if (null == resp) {
       return null;

@@ -161,6 +161,7 @@ public final class Protocol {
     } else if (b == COLON_BYTE) {
       return processInteger(is);
     } else if (b == MINUS_BYTE) {
+      //处理错误
       processError(is);
       return null;
     } else {
